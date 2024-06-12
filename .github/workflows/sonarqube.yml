@@ -10,7 +10,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -21,12 +21,11 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          dir
 
   SonarQube:
     name: SonarQube
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -49,13 +48,13 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          curl -L https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.6.0.2311/sonar-scanner-cli-4.6.0.2311-linux.zip -o sonar-scanner-cli.zip
-          unzip sonar-scanner-cli.zip
-          ./sonar-scanner-4.6.0.2311-linux/bin/sonar-scanner \
-            -Dsonar.projectKey=Restaurante_Laravel \
-            -Dsonar.sources=. \
-            -Dsonar.exclusions=vendor/**,node_modules/** \
-            -Dsonar.language=php \
-            -Dsonar.php.laravel=TRUE \
-            -Dsonar.host.url=http://localhost:9000 \
+          curl -L https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.6.0.2311/sonar-scanner-cli-4.6.0.2311-windows.zip -o sonar-scanner-cli.zip
+          Expand-Archive -Path sonar-scanner-cli.zip -DestinationPath sonar-scanner
+          sonar-scanner\bin\sonar-scanner.bat ^
+            -Dsonar.projectKey=Restaurante_Laravel ^
+            -Dsonar.sources=. ^
+            -Dsonar.exclusions=vendor/**,node_modules/** ^
+            -Dsonar.language=php ^
+            -Dsonar.php.laravel=TRUE ^
+            -Dsonar.host.url=http://localhost:9000 ^
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
