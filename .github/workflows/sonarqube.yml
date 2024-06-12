@@ -44,13 +44,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-sonar-
 
+      - name: Download SonarQube Scanner
+        run: |
+          Invoke-WebRequest -Uri 'https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.6.0.2311/sonar-scanner-cli-4.6.0.2311-windows.zip' -OutFile 'sonar-scanner-cli.zip'
+          Expand-Archive -Path 'sonar-scanner-cli.zip' -DestinationPath 'sonar-scanner'
+      
       - name: SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          curl -L https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.6.0.2311/sonar-scanner-cli-4.6.0.2311-windows.zip -o sonar-scanner-cli.zip
-          Expand-Archive -Path sonar-scanner-cli.zip -DestinationPath sonar-scanner
-          sonar-scanner\bin\sonar-scanner.bat ^
+          .\sonar-scanner\bin\sonar-scanner.bat ^
             -Dsonar.projectKey=Restaurante_Laravel ^
             -Dsonar.sources=. ^
             -Dsonar.exclusions=vendor/**,node_modules/** ^
