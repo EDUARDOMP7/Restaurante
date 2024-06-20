@@ -1,42 +1,39 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $order->name ?? "{{ __('Show') Order" }}
+    {{ $order->name ?? __('Show Order') }}
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Order</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('orders.index') }}"> {{ __('Back') }}</a>
-                        </div>
+    <section class="content container mx-auto p-4">
+        <div class="flex justify-center">
+            <div class="w-full max-w-2xl">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="bg-gray-800 text-white p-4 flex justify-between items-center">
+                        <span class="text-lg font-semibold">{{ __('Show') }} Order</span>
+                        <a class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                            href="{{ route('orders.index') }}">
+                            {{ __('Back') }}
+                        </a>
                     </div>
 
-                    <div class="card-body">
-                        
-                        <div class="form-group">
-                            <strong>Date Time:</strong>
-                            {{ $order->date_time }}
+                    <div class="p-6">
+                        <div class="mb-4">
+                            <strong class="block text-gray-700">Date Time:</strong>
+                            <span class="text-gray-900">{{ $order->date_time }}</span>
                         </div>
-                        <div class="form-group">
-                            <strong>Precio:</strong>
-                            {{ $order->precio }}
+                        <div class="mb-4">
+                            <strong class="block text-gray-700">Precio:</strong>
+                            <span class="text-gray-900">{{ $order->precio }}</span>
                         </div>
-                        <div class="form-group">
-                            <strong>Client Id:</strong>
-                            {{ $order->client_id }}
+                        <div class="mb-4">
+                            <strong class="block text-gray-700">Client Id:</strong>
+                            <span class="text-gray-900">{{ $order->client_id }}</span>
                         </div>
-                        <div class="form-group">
-                            <strong>Table Id:</strong>
-                            {{ $order->table_id }}
+                        <div class="mb-4">
+                            <strong class="block text-gray-700">Table Id:</strong>
+                            <span class="text-gray-900">{{ $order->table_id }}</span>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -1,37 +1,33 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $table->name ?? "{{ __('Show') Table" }}
+    {{ $table->name ?? __('Show Table') }}
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Table</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('tables.index') }}"> {{ __('Back') }}</a>
-                        </div>
+    <div class="container mx-auto p-6">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="bg-gray-800 text-white p-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-lg font-semibold">{{ __('Show Table') }}</h2>
+                    <a href="{{ route('tables.index') }}" class="btn btn-primary">
+                        {{ __('Back') }}
+                    </a>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <div class="overflow-hidden">
+                    <div class="py-4">
+                        <strong class="block mb-2">{{ __('Capacity') }}:</strong>
+                        <p class="text-lg">{{ $table->capacity }}</p>
                     </div>
-
-                    <div class="card-body">
-                        
-                        <div class="form-group">
-                            <strong>Capacity:</strong>
-                            {{ $table->capacity }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Status:</strong>
-                            {{ $table->status }}
-                        </div>
-
+                    <div class="py-4">
+                        <strong class="block mb-2">{{ __('Status') }}:</strong>
+                        <p class="text-lg">{{ $table->status }}</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 @endsection

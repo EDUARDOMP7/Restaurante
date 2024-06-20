@@ -1,14 +1,20 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
+// vite.config.js
+import { defineConfig } from "vite";
+import laravel from "laravel-vite-plugin";
+import tailwindcss from "tailwindcss";
+import autoprefixer from "autoprefixer";
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: [
-                'resources/sass/app.scss',
-                'resources/js/app.js',
-            ],
+            input: ["resources/css/app.scss", "resources/js/app.js"],
             refresh: true,
         }),
+        tailwindcss(),
     ],
+    css: {
+        postcss: {
+            plugins: [tailwindcss, autoprefixer],
+        },
+    },
 });

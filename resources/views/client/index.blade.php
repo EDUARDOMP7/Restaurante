@@ -5,60 +5,59 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-
-                            <span id="card_title">
-                                {{ __('Client') }}
-                            </span>
-
-                             <div class="float-right">
-                                <a href="{{ route('clients.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
-                              </div>
-                        </div>
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col">
+            <div class="w-full mb-4">
+                <div class="bg-white shadow-md rounded-lg">
+                    <div class="bg-gray-800 text-white py-4 px-6 rounded-t-lg flex justify-between items-center">
+                        <h3 class="text-lg font-semibold">{{ __('Client') }}</h3>
+                        <a href="{{ route('clients.create') }}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            {{ __('Create New') }}
+                        </a>
                     </div>
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                            role="alert">
+                            <span class="block sm:inline">{{ $message }}</span>
                         </div>
                     @endif
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
+                    <div class="p-6">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-800 text-white">
                                     <tr>
-                                        <th>No</th>
-                                        
-										<th>Name</th>
-										<th>Email</th>
-										<th>Telefono</th>
-
-                                        <th></th>
+                                        <th class="py-2 px-4">{{ __('No') }}</th>
+                                        <th class="py-2 px-4">{{ __('Name') }}</th>
+                                        <th class="py-2 px-4">{{ __('Email') }}</th>
+                                        <th class="py-2 px-4">{{ __('Telefono') }}</th>
+                                        <th class="py-2 px-4">{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($clients as $client)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-											<td>{{ $client->name }}</td>
-											<td>{{ $client->email }}</td>
-											<td>{{ $client->telefono }}</td>
-
-                                            <td>
-                                                <form action="{{ route('clients.destroy',$client->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('clients.show',$client->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('clients.edit',$client->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                        <tr class="border-b border-gray-200">
+                                            <td class="py-2 px-4">{{ ++$i }}</td>
+                                            <td class="py-2 px-4">{{ $client->name }}</td>
+                                            <td class="py-2 px-4">{{ $client->email }}</td>
+                                            <td class="py-2 px-4">{{ $client->telefono }}</td>
+                                            <td class="py-2 px-4">
+                                                <form action="{{ route('clients.destroy', $client->id) }}" method="POST">
+                                                    <a href="{{ route('clients.show', $client->id) }}"
+                                                        class="text-blue-500 hover:text-blue-700 font-bold py-1 px-2 rounded">
+                                                        {{ __('Show') }}
+                                                    </a>
+                                                    <a href="{{ route('clients.edit', $client->id) }}"
+                                                        class="text-green-500 hover:text-green-700 font-bold py-1 px-2 rounded">
+                                                        {{ __('Edit') }}
+                                                    </a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit"
+                                                        class="text-red-500 hover:text-red-700 font-bold py-1 px-2 rounded">
+                                                        {{ __('Delete') }}
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -68,7 +67,9 @@
                         </div>
                     </div>
                 </div>
-                {!! $clients->links() !!}
+                <div class="mt-4">
+                    {!! $clients->links() !!}
+                </div>
             </div>
         </div>
     </div>
