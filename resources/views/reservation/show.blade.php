@@ -1,34 +1,28 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $reservation->name ?? "{{ __('Show') Reservation" }}
+    {{ $reservation->name ?? "{{ __('Show') }} Reservation" }}
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Reservation</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('reservation.index') }}"> {{ __('Back') }}</a>
-                        </div>
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white shadow-md rounded-lg">
+            <div class="flex justify-between items-center bg-gray-100 p-4 border-b">
+                <span class="text-lg font-semibold">{{ __('Show') }} Reservation</span>
+                <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="{{ route('reservation.index') }}">
+                    {{ __('Back') }}
+                </a>
+            </div>
+
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <strong class="w-1/3 text-gray-700">{{ __('Date Time:') }}</strong>
+                        <span class="w-2/3 text-gray-900">{{ $reservation->date_time }}</span>
                     </div>
-
-                    <div class="card-body">
-
-                        <div class="form-group">
-                            <strong>Date Time:</strong>
-                            {{ $reservation->date_time }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Client Id:</strong>
-                            {{ $reservation->client_id }}
-                        </div>
-
+                    <div class="flex items-center">
+                        <strong class="w-1/3 text-gray-700">{{ __('Client Id:') }}</strong>
+                        <span class="w-2/3 text-gray-900">{{ $reservation->client_id }}</span>
                     </div>
                 </div>
             </div>
