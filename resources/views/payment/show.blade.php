@@ -5,34 +5,33 @@
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Payment</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('payment.index') }}"> {{ __('Back') }}</a>
-                        </div>
+    <section class="container mx-auto p-6">
+        <div class="flex justify-center">
+            <div class="w-full max-w-lg">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="bg-gray-800 p-4 flex justify-between items-center">
+                        <h2 class="text-white text-lg font-semibold">
+                            {{ __('Show') }} Payment
+                        </h2>
+                        <a class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                            href="{{ route('payment.index') }}">
+                            {{ __('Back') }}
+                        </a>
                     </div>
 
-                    <div class="card-body">
-
-                        <div class="form-group">
-                            <strong>Client Id:</strong>
-                            {{ $payment->client_id }}
+                    <div class="p-6">
+                        <div class="mb-4">
+                            <strong class="block text-gray-700">Client Id:</strong>
+                            <p class="text-gray-900">{{ $payment->client_id }}</p>
                         </div>
-                        <div class="form-group">
-                            <strong>Total Amount:</strong>
-                            {{ $payment->total_amount }}
+                        <div class="mb-4">
+                            <strong class="block text-gray-700">Total Amount:</strong>
+                            <p class="text-gray-900">{{ $payment->total_amount }}</p>
                         </div>
-                        <div class="form-group">
-                            <strong>Payment Method:</strong>
-                            {{ $payment->payment_method }}
+                        <div class="mb-4">
+                            <strong class="block text-gray-700">Payment Method:</strong>
+                            <p class="text-gray-900">{{ $payment->payment_method }}</p>
                         </div>
-
                     </div>
                 </div>
             </div>
