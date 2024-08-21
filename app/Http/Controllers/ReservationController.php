@@ -10,24 +10,24 @@ class ReservationController extends Controller
 {
     public function index()
     {
-        $reservations = Reservation::paginate()
+        $reservations = Reservation::paginate();
 
-        return view('reservation.index', compact('reservacion'))
+        return view('reservation.index', compact('reservations'))
             ->with('i', (request()->input('page', 1) - 1) * $reservations->perPage());
     }
 
     public function create()
     {
         $reservation = new Reservation();
-        $clients=Client::lists('name','id');
-        return view('reservation.create', compact('reservation','clients'));
+        $clients = Client::pluck('name', 'id');
+        return view('reservation.create', compact('reservation', 'clients'));
     }
 
     public function store(Request $request)
     {
-        $this->validate(request(), Reservation::$rules);
+        $request->validate(Reservation::$rules);
 
-        $reservation = Reservation::create($request->all());
+        $reservation = Reservation::create($request->only(['client_id', 'date', 'time', 'notes']));
 
         return redirect()->route('reservation.index')
             ->with('success', 'Reservation created successfully.');
@@ -35,23 +35,23 @@ class ReservationController extends Controller
 
     public function show($id)
     {
-        $reservation = Reservation::find($id);
+        $reservation = Reservation::findOrFail($id);
 
         return view('reservation.show', compact('reservation'));
     }
 
     public function edit($id)
     {
-        $reservation = Reservation::find($id);
+        $reservation = Reservation::findOrFail($id);
 
         return view('reservation.edit', compact('reservation'));
     }
 
     public function update(Request $request, Reservation $reservation)
     {
-        $this->validate(request(), Reservation::$rules);
+        $request->validate(Reservation::$rules);
 
-        $reservation->update($request->all());
+        $reservation->update($request->only(['client_id', 'date', 'time', 'notes']));
 
         return redirect()->route('reservation.index')
             ->with('success', 'Reservation updated successfully');
@@ -59,9 +59,11 @@ class ReservationController extends Controller
 
     public function destroy($id)
     {
-        $reservation = Reservation::find($id)->delete();
+        $reservation = Reservation::findOrFail($id);
+        $reservation->delete();
 
         return redirect()->route('reservation.index')
             ->with('success', 'Reservation deleted successfully');
     }
 }
+
