@@ -20,7 +20,7 @@
             box-sizing: border-box;
             border-width: 0;
             border-style: solid;
-            border-color: #e5e7eb
+            border-color: #f0f1f4
         }
 
         ::after,
@@ -558,7 +558,7 @@
         }
 
         .stroke-red-500 {
-            stroke: #ef4444
+            stroke: #f15b5b
         }
 
         .stroke-gray-400 {
