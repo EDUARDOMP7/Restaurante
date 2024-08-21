@@ -7,7 +7,7 @@
                 <div class="bg-white shadow-lg rounded-lg">
                     <div class="p-6 bg-gray-200 border-b border-gray-300">
                         <h2 class="text-xl font-semibold text-gray-700">
-                            {{ __('Dashboard') }}
+                            {{ __('Inicio') }}
                         </h2>
                     </div>
 
@@ -20,7 +20,7 @@
                         @endif
 
                         <p class="text-gray-900 text-lg">
-                            {{ __('You are logged in!') }}
+                            {{ __('¡Has iniciado sesión!') }}
                         </p>
                     </div>
                 </div>
