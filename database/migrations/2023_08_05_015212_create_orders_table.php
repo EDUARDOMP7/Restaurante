@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date_time');
-            $table->float('bill');
+            $table->float('bill')
             $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+          
             $table->unsignedBigInteger('table_id');
 
-            $table->timestamps();
         });
 
     }
