@@ -11,49 +11,69 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+// Grupo de rutas accesibles solo para usuarios que no están autenticados (guest)
 Route::middleware('guest')->group(function () {
+
+    // Ruta para mostrar el formulario de registro
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
+    // Ruta para manejar el envío del formulario de registro
     Route::post('register', [RegisteredUserController::class, 'store']);
 
+    // Ruta para mostrar el formulario de inicio de sesión
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
+    // Ruta para manejar el envío del formulario de inicio de sesión
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
+    // Ruta para mostrar el formulario de restablecimiento de contraseña
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');
 
+    // Ruta para manejar el envío del formulario de restablecimiento de contraseña
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
                 ->name('password.email');
 
+    // Ruta para mostrar el formulario de creación de nueva contraseña
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
                 ->name('password.reset');
 
+    // Ruta para manejar el envío del formulario de nueva contraseña
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
 });
+
+// Grupo de rutas accesibles solo para usuarios autenticados (auth)
 Route::middleware('auth')->group(function () {
+
+    // Ruta para mostrar la página de verificación de email
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
 
+    // Ruta para manejar la verificación del email con un enlace firmado
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
                 ->middleware(['signed', 'throttle:6,1'])
                 ->name('verification.verify');
 
+    // Ruta para reenviar la notificación de verificación de email
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
                 ->middleware('throttle:6,1')
                 ->name('verification.send');
 
+    // Ruta para mostrar el formulario de confirmación de contraseña
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
                 ->name('password.confirm');
 
+    // Ruta para manejar el envío del formulario de confirmación de contraseña
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+    // Ruta para actualizar la contraseña del usuario
+    Route::put('password', [PasswordController::class, 'update'])
+                ->name('password.update');
 
+    // Ruta para cerrar la sesión del usuario
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
-})
-;
+});
